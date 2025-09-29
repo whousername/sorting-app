@@ -19,18 +19,6 @@ src/main/java/edu/finalproject/
 - Java 11 или выше
 - Maven 3.6 или выше
 
-Пример использования dtoBuilder:
-```java
-Builder builder = new dtoBuilder();  
-PersonalData personalData = builder.id(69L).firstName("Vasyliy").lastName("Pupkin").build();
-System.out.println(personalData);
-```
-Пример использования consoleBuilder:
-```java
-Builder builder = new ConsoleBuilder();  
-PersonalData personalData = builder.id(0L).firstName("").lastName("").build();
-System.out.println(personalData);
-```
 ## Сборка и запуск
 
 ```bash
@@ -44,6 +32,18 @@ mvn exec:java -Dexec.mainClass="edu.finalproject.Main"
 mvn test
 ```
 
+# Пример использования dtoBuilder:
+```java
+Builder builder = new dtoBuilder();  
+PersonalData personalData = builder.id(69L).firstName("Vasyliy").lastName("Pupkin").build();
+System.out.println(personalData);
+```
+# Пример использования consoleBuilder:
+```java
+Builder builder = new ConsoleBuilder();  
+PersonalData personalData = builder.id(0L).firstName("").lastName("").build();
+System.out.println(personalData);
+```
 ## Пакеты
 
 - **modelAndBuilder** - содержит модели данных и реализацию паттерна Builder
