@@ -32,13 +32,13 @@ mvn exec:java -Dexec.mainClass="edu.finalproject.Main"
 mvn test
 ```
 
-# Пример использования dtoBuilder:
+### Пример использования dtoBuilder:
 ```java
 Builder builder = new dtoBuilder();  
 PersonalData personalData = builder.id(69L).firstName("Vasyliy").lastName("Pupkin").build();
 System.out.println(personalData);
 ```
-# Пример использования consoleBuilder:
+### Пример использования consoleBuilder:
 ```java
 Builder builder = new ConsoleBuilder();  
 PersonalData personalData = builder.id(0L).firstName("").lastName("").build();
