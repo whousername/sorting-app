@@ -9,7 +9,7 @@
     <artifactId>sorting-app</artifactId>
     <!-- todo Удалить "-SNAPSHOT" после релиза -->
     <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <name>Sorting Application</name>
     <description>Application for sorting algorithms and binary search</description>
@@ -18,7 +18,7 @@
 <!--    </modules>-->
 
     <properties>
-        <maven.compiler.release>24</maven.compiler.release>
+        <maven.compiler.release>25</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.2</junit.version>
         <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
@@ -34,5 +34,17 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>25</source>
+                    <target>25</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
 

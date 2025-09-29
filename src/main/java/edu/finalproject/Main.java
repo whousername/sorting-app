@@ -41,5 +41,5 @@ public class Main {
 //     │   ├── binarySearch/                      # Бинарный поиск        //Филип Смыслов
 //     │   ├── validationUtils/                   # Валидация             //Антон Бисеров
 //     │   └── inputOutput/                       # Ввод/вывод            //Антон Бисеров
-//     └── test/java/edu/finalproject/             # Тесты
+//     └── test/java/edu/finalproject/            # Тесты
 
