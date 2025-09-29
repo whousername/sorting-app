@@ -5,7 +5,7 @@
 ## Структура проекта
 
 ```
-src/main/java/com/sortingapp/
+src/main/java/edu/finalproject/
 ├── Main.java                    # Главный класс приложения
 ├── modelAndBuilder/            # Модели данных и паттерн Builder
 ├── sortAlgorithms/             # Алгоритмы сортировки
