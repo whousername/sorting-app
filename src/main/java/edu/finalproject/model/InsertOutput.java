@@ -1,10 +1,9 @@
 package edu.finalproject.model;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.logging.*;
+import java.util.stream.Collectors;
 
 public class InsertOutput {
     private static final Logger logger = Logger.getLogger(InsertOutput.class.getName());
@@ -35,6 +34,11 @@ public class InsertOutput {
     //Генерация случайных данных
     public List<PersonalData> generateRandomData(int count) {
         List<PersonalData> users = new ArrayList<>();
+
+        if (count < 0){
+            logger.severe("Количество генерируемых юзеров не может быть меньше нуля!");
+            return users;
+        }
 
         for (int i = 0; i < count; i++) {
             try {
@@ -87,4 +91,29 @@ public class InsertOutput {
             System.out.println("----------------------------------------");
         }).toList();
     }
+
+    public void saveToFile(String filename, List<PersonalData> users) {
+        if (users == null || users.isEmpty()) {
+            logger.warning("Попытка сохранить пустой список пользователей.");
+            return;
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            writer.write("=== Список пользователей ===\n");
+            writer.write("Всего пользователей: " + users.size() + "\n");
+            writer.write("----------------------------------------\n");
+
+            String content = users.stream()
+                    .map(user -> "USER: " + user
+                            + "\n----------------------------------------\n")
+                    .collect(Collectors.joining());
+
+            writer.write(content);
+
+            System.out.printf("Пользователи успешно сохранены в файл: %s", filename);
+        } catch (IOException e) {
+            logger.severe("Ошибка записи в файл: " + e.getMessage());
+        }
+    }
+
 }

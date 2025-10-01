@@ -5,8 +5,8 @@ import java.util.Random;
 public class RandomUserGenerator {
     private static long idCounter = 0;
 
-    private static final String[] FIRST_NAMES = {"John", "Alice", "Bob", "Eva", "Mike", "Sara"};
-    private static final String[]  LAST_NAMES = {"Doe", "Smith", "Johnson", "Brown", "Wilson", "Davis"};
+    private static final String[] FIRST_NAMES = {"Джон", "Алиса", "Боб", "Ева", "Майк", "Сара"};
+    private static final String[]  LAST_NAMES = {"Дое", "Смит", "Джонсон", "Браун", "Уилсон", "Дэвис"};
     private static final Random RANDOM = new Random();
 
     public static PersonalData generate() {

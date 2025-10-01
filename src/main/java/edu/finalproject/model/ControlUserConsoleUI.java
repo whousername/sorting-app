@@ -58,6 +58,7 @@ public class ControlUserConsoleUI {
 
             processUsers(users);
         }
+
     }
 
     private void processUsers(List<PersonalData> users) {
@@ -65,6 +66,18 @@ public class ControlUserConsoleUI {
 
         if (users.isEmpty()) {
             System.out.println("Список пуст");
+            return;
+        }
+
+        // сохранения файла
+        System.out.println("\nПрименить фильтрацию? (y/n): ");
+        if (scanner.nextLine().equalsIgnoreCase("y")) {
+            System.out.print("Сохранить пользователей в отдельный файл в формате .txt: (y/n)");
+            if (scanner.nextLine().equalsIgnoreCase("y")) {
+                System.out.println("Назовите файл");
+                String fileName = scanner.nextLine();
+                insertOutput.saveToFile(fileName + ".txt", users);
+            }
         }
     }
 }
