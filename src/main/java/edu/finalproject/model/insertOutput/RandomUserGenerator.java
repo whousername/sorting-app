@@ -1,4 +1,7 @@
-package edu.finalproject.model;
+package edu.finalproject.model.insertOutput;
+
+import edu.finalproject.model.DtoBuilder;
+import edu.finalproject.model.PersonalData;
 
 import java.util.Random;
 

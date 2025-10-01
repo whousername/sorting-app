@@ -1,4 +1,6 @@
-package edu.finalproject.model;
+package edu.finalproject.model.insertOutput;
+
+import edu.finalproject.model.PersonalData;
 
 import java.io.*;
 import java.util.*;
