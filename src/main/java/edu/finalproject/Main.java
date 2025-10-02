@@ -6,8 +6,9 @@ public class Main {
     public static void main(String[] args) {
 
 
-         UIService ui = new UIService();
-         ui.run();
+        UIService ui = new UIService();
+        ui.run();
+        
     }
 }
 
