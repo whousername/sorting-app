@@ -3,6 +3,8 @@ package edu.finalproject.model.insertOutput;
 import edu.finalproject.model.PersonalData;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.logging.*;
 import java.util.stream.Collectors;
@@ -94,16 +96,21 @@ public class InsertOutput {
         }).toList();
     }
 
-    public void saveToFile(String filename, List<PersonalData> users) {
+    public void saveToFile(String filename, List<PersonalData> users, boolean append) {
         if (users == null || users.isEmpty()) {
             logger.warning("Попытка сохранить пустой список пользователей.");
             return;
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            writer.write("=== Список пользователей ===\n");
-            writer.write("Всего пользователей: " + users.size() + "\n");
-            writer.write("----------------------------------------\n");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, append))) {
+            if (!append || Files.notExists(Paths.get(filename)) || Files.size(Paths.get(filename)) == 0) {
+                writer.write("=== Список пользователей ===\n");
+                writer.write("Всего пользователей: " + users.size() + "\n");
+                writer.write("----------------------------------------\n");
+            } else {
+                // В режиме добавления - разделитель между сессиями
+                writer.write("\n=== Дополнительные пользователи ===\n");
+            }
 
             String content = users.stream()
                     .map(user -> "USER: " + user
@@ -112,10 +119,14 @@ public class InsertOutput {
 
             writer.write(content);
 
-            System.out.printf("Пользователи успешно сохранены в файл: %s", filename);
+            System.out.printf("Пользователи успешно сохранены в файл: %s (режим: %s)",
+                    filename, append ? "добавление" : "перезапись");
         } catch (IOException e) {
             logger.severe("Ошибка записи в файл: " + e.getMessage());
         }
     }
 
+    public void saveToFile(String filename, List<PersonalData> users) {
+        saveToFile(filename, users, false);
+    }
 }

@@ -72,14 +72,27 @@ public class ControlUserConsoleUI {
         }
 
         // сохранения файла
-        System.out.println("\nПрименить фильтрацию? (y/n): ");
+        System.out.println("\nСоздать файл с результатами? (y/n): ");
         if (scanner.nextLine().equalsIgnoreCase("y")) {
-            System.out.print("Сохранить пользователей в отдельный файл в формате .txt: (y/n)");
-            if (scanner.nextLine().equalsIgnoreCase("y")) {
+            System.out.print("Сохранить пользователей в отдельный файл в формате .txt" +
+                    " или перезаписать существующий (c/r):");
+
+            String choice = scanner.nextLine();
+
+            if (choice.equalsIgnoreCase("с")) {
                 System.out.println("Назовите файл");
                 String fileName = scanner.nextLine();
                 insertOutput.saveToFile(fileName + ".txt", users);
             }
+
+            else if (choice.equalsIgnoreCase("r")) {
+                System.out.println("Напишите название файла");
+                String fileName = scanner.nextLine();
+                insertOutput.saveToFile(fileName + ".txt", users, true);
+            }else{
+                System.out.println("Ошибка ввода");
+            }
+
         }
     }
 }
