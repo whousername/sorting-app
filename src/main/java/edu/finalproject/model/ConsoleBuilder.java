@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 public class ConsoleBuilder implements Builder{
 
-    PersonalData personalData = new PersonalData(null, null, null);
+    PersonalData personalData = new PersonalData();
     Scanner scanner = new Scanner(System.in);
 
     @Override
     public Builder id(Long dummy) {
 
-        System.out.println("\nПожалуйста, введите ID:\n");
+        System.out.print("\nПожалуйста, введите ID: ");
         Long id = Long.valueOf(scanner.nextLine());
         validateValue(id);
         personalData.id = id;
@@ -20,7 +20,7 @@ public class ConsoleBuilder implements Builder{
     @Override
     public Builder firstName(String dummy) {
 
-        System.out.println("\nПожалуйста, введите имя:\n");
+        System.out.print("\nПожалуйста, введите имя: ");
         String firstName = scanner.nextLine();
         validateValue(firstName);
         personalData.firstName = firstName;
@@ -31,7 +31,7 @@ public class ConsoleBuilder implements Builder{
     @Override
     public Builder lastName(String dummy) {
 
-        System.out.println("\nПожалуйста, введите фамилию:\n");
+        System.out.print("\nПожалуйста, введите фамилию: ");
         String lastName = scanner.nextLine();
         validateValue(lastName);
         personalData.lastName = lastName;
@@ -55,6 +55,6 @@ public class ConsoleBuilder implements Builder{
 
     private void validateValue(Long value) {
 
-        if (value == null) throw new IllegalStateException("Cannot be null");
+        if (value == null || value < 0) throw new IllegalStateException("Cannot be null and cannot be < 0");
     }
 }

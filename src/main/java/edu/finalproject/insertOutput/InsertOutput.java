@@ -1,4 +1,4 @@
-package edu.finalproject.model.insertOutput;
+package edu.finalproject.insertOutput;
 
 import edu.finalproject.model.PersonalData;
 
@@ -39,7 +39,7 @@ public class InsertOutput {
     public List<PersonalData> generateRandomData(int count) {
         List<PersonalData> users = new ArrayList<>();
 
-        if (count < 0){
+        if (count < 0) {
             logger.severe("Количество генерируемых юзеров не может быть меньше нуля!");
             return users;
         }
@@ -90,6 +90,12 @@ public class InsertOutput {
         System.out.println("\n=== Список пользователей ===");
         System.out.println("Всего пользователей: " + users.size());
         System.out.println("----------------------------------------");
+
+        /*todo: .peek() зачастую ведет себя "неправильно", возможно стоит заменить на
+         * users.stream().forEach(user -> {
+         * System.out.printf("USER: %s%n", user.toString());
+         * System.out.println("----------------------------------------");*/
+
         users.stream().peek(user -> {
             System.out.printf("USER: %s%n", user.toString());
             System.out.println("----------------------------------------");

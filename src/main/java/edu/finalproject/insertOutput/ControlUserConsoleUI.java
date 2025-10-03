@@ -1,4 +1,4 @@
-package edu.finalproject.model.insertOutput;
+package edu.finalproject.insertOutput;
 
 import edu.finalproject.model.PersonalData;
 
