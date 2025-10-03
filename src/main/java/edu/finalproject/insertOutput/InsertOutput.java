@@ -1,4 +1,4 @@
-package edu.finalproject.model.insertOutput;
+package edu.finalproject.insertOutput;
 
 import edu.finalproject.model.PersonalData;
 
@@ -11,12 +11,13 @@ import java.util.stream.Collectors;
 
 public class InsertOutput {
     private static final Logger logger = Logger.getLogger(InsertOutput.class.getName());
-    private static long idCounter = 0;
+    //private static long idCounter = 0;
+    private Scanner scanner = new Scanner(System.in);
 
     // Ввод юзеров через консоль
     public List<PersonalData> manualInput() {
         List<PersonalData> users = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
+    
 
         System.out.println("Введите количество пользователей:");
         int count = ManualUserInput.readPositiveInt(scanner);
@@ -36,13 +37,16 @@ public class InsertOutput {
     }
 
     //Генерация случайных данных
-    public List<PersonalData> generateRandomData(int count) {
+    public List<PersonalData> generateRandomData() {
         List<PersonalData> users = new ArrayList<>();
 
-        if (count < 0){
-            logger.severe("Количество генерируемых юзеров не может быть меньше нуля!");
-            return users;
-        }
+        System.out.println("Введите количество пользователей:");  //я добавил здесь запрос на кол. пользователей. В manualInput изначально был запрос на количество пользователей прямо в методе,
+        int count = ManualUserInput.readPositiveInt(scanner);      //а этот метод передавал эту работу в UI 
+
+        // if (count < 0){   //закомментил, эта проверка никогда не сработает тк у нас есть readPositiveInt() и используется строкой выше
+        //     logger.severe("Количество генерируемых юзеров не может быть меньше нуля!");
+        //     return users;
+        // }
 
         for (int i = 0; i < count; i++) {
             try {
@@ -51,31 +55,6 @@ public class InsertOutput {
             } catch (Exception e) {
                 logger.warning("Ошибка при генерации: " + e.getMessage());
             }
-        }
-
-        return users;
-    }
-
-    //чтение из файла
-    public List<PersonalData> readFromFile(String filename) {
-        List<PersonalData> users = new ArrayList<>();
-        String line = "";
-        int lineNumber = 0;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            while ((line = reader.readLine()) != null) {
-                lineNumber++;
-                try {
-                    PersonalData user = FileUserReader.parseLine(line, idCounter++);
-                    if (user != null) {
-                        users.add(user);
-                    }
-                } catch (Exception e) {
-                    logger.severe("Невалидная строка " + lineNumber + ": " + line + " - " + e.getMessage());
-                }
-            }
-        } catch (IOException e) {
-            logger.severe("Ошибка чтения: " + e.getMessage() + "\n");
         }
 
         return users;
@@ -129,4 +108,68 @@ public class InsertOutput {
     public void saveToFile(String filename, List<PersonalData> users) {
         saveToFile(filename, users, false);
     }
+
+    /**
+     * READER файла с парсером  
+     */
+    public List<PersonalData> readFromSavedFile(String filename) {
+        List<PersonalData> users = new ArrayList<>();
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            List<String> lines = new ArrayList<>();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+            
+            users = FileUserReader.parseSavedFile(lines);
+            System.out.println("Прочитано пользователей из файла: " + users.size());
+            
+        } catch (IOException e) {
+            logger.severe("Ошибка чтения файла: " + e.getMessage());
+        }
+        
+        return users;
+    }
+
+    /**
+     * READER с запросом названия файла 
+     */
+    public List<PersonalData> readFromSavedFile() {
+        System.out.print("Введите имя файла: ");
+        String filename = scanner.nextLine();
+        return readFromSavedFile(filename);
+    }
+
+
+
+    //READER файлов со старым парсером 
+    // public List<PersonalData> readFromFile() {
+    //     List<PersonalData> users = new ArrayList<>();
+    //     String line = "";
+    //     int lineNumber = 0;
+
+    //     System.out.print("Введите имя файла: ");
+    //     String filename = scanner.nextLine();
+
+    //     try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+    //         while ((line = reader.readLine()) != null) {
+    //             lineNumber++;
+    //             try {
+    //                 PersonalData user = FileUserReader.parseLine(line, idCounter++);
+    //                 if (user != null) {
+    //                     users.add(user);
+    //                 }
+    //             } catch (Exception e) {
+    //                 logger.severe("Невалидная строка " + lineNumber + ": " + line + " - " + e.getMessage());
+    //             }
+    //         }
+    //     } catch (IOException e) {
+    //         logger.severe("Ошибка чтения: " + e.getMessage() + "\n");
+    //     }
+
+    //     return users;
+    // }
+
+
 }
