@@ -1,4 +1,4 @@
-package edu.finalproject.insertOutput;
+package edu.finalproject.inputOutput;
 
 public class userValidator {
     private static final String USERNAME_PATTERN = "[a-zA-Zа-яА-ЯёЁ]{3,20}$";

@@ -36,7 +36,7 @@ public class Main {
 // └── src/
 //     ├── main/java/edu/finalproject/
 //     │   ├── Main.java                          # Main класс, UI        //Павел Лопатин
-//     │   ├── modelAndBuilder/                   # Класс User и builder  //Александр Грабельников
+//     │   ├── model/                             # Класс User и builder  //Александр Грабельников
 //     │   ├── sortAlgorithms/                    # Алгоритмы сортировки  //Рашит Назаров
 //     │   ├── binarySearch/                      # Бинарный поиск        //Филип Смыслов
 //     │   ├── validationUtils/                   # Валидация             //Антон Бисеров
