@@ -4,7 +4,9 @@ package edu.finalproject.sortAlgorithms;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-public class CustomUserCollection<E> extends SelectionSort<E> {
+/* todo: имплементировать от Collection
+ *  После этого, заменить все использования CustomUserCollection на Collection*/
+public class CustomUserCollection<E> {
     private Object[] elements;
     private int size;
 
@@ -12,13 +14,13 @@ public class CustomUserCollection<E> extends SelectionSort<E> {
         return size;
     }
 
-    public CustomUserCollection(){
+    public CustomUserCollection() {
         // Конструктор без параметров
         this.elements = new Object[0];
         this.size = 0;
     }
 
-    public CustomUserCollection(int size){
+    public CustomUserCollection(int size) {
         // Конструктор с параметром
         this.elements = new Object[size];
         this.size = size;
@@ -34,7 +36,7 @@ public class CustomUserCollection<E> extends SelectionSort<E> {
     public E get(int index) {
         // Обращение по индексу
         if (index >= size || index < 0) throw new IndexOutOfBoundsException();
-        return (E)elements[index];
+        return (E) elements[index];
     }
 
     public void fillFromStream(Stream<E> stream) {
@@ -45,7 +47,7 @@ public class CustomUserCollection<E> extends SelectionSort<E> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("[");
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             if (i != 0) sb.append(", ");
             sb.append(elements[i]); // мб нужно добавить .toString()
         }
@@ -53,7 +55,7 @@ public class CustomUserCollection<E> extends SelectionSort<E> {
         return sb.toString();
     }
 
-    public void swap(int i, int j){
+    public void swap(int i, int j) {
         if (i < 0 || i >= size || j < 0 || j >= size) {
             throw new IndexOutOfBoundsException("Индексы вне диапазона");
         }
