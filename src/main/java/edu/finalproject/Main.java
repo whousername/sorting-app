@@ -40,6 +40,6 @@ public class Main {
 //     │   ├── sortAlgorithms/                    # Алгоритмы сортировки  //Рашит Назаров
 //     │   ├── binarySearch/                      # Бинарный поиск        //Филип Смыслов
 //     │   ├── validationUtils/                   # Валидация             //Антон Бисеров
-//     │   └── inputOutput/                       # Ввод/вывод            //Антон Бисеров
+//     │   └── insertOutput/                       # Ввод/вывод            //Антон Бисеров
 //     └── test/java/edu/finalproject/            # Тесты
 
