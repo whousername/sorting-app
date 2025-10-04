@@ -15,7 +15,7 @@ public class ManualUserInput {
                 if (n <= 0) throw new IllegalArgumentException();
                 return n;
             } catch (Exception e) {
-                System.out.println("Введите положительное число!");
+                WarningColors.printStatus(Status.WARNING, "Введите положительное число!");
             }
         }
     }
@@ -25,11 +25,11 @@ public class ManualUserInput {
 
         System.out.print("Введите имя: ");
         String firstName = scanner.nextLine();
-        userValidator.validateUsername(firstName);
+        UserValidator.validateUsername(firstName);
 
         System.out.print("Введите фамилию: ");
         String lastName = scanner.nextLine();
-        userValidator.validateUsername(lastName);
+        UserValidator.validateUsername(lastName);
 
         return builder.id(idCounter++)
                 .firstName(firstName)
