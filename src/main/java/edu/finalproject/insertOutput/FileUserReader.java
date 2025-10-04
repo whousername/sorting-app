@@ -12,28 +12,11 @@ public class FileUserReader {
     
     // Регулярное выражение для парсинга: USER: Имя Фамилия (ID: 123)
     private static final Pattern USER_PATTERN = Pattern.compile("USER:\\s+(.+?)\\s+\\(ID:\\s*(\\d+)\\)");
-    
-    /**
-     * Парсит строку в формате "имя,фамилия" (старый формат)
-     */
-    // public static PersonalData parseLine(String line, long idCounter) {
-    //     String[] parts = line.split(",");
-    //     if (parts.length != 2) {
-    //         throw new IllegalArgumentException("Неверное количество полей. Ожидается 2, получено " + parts.length);
-    //     }
 
-    //     try {
-    //         String firstName = parts[0].trim();
-    //         userValidator.validateUsername(firstName);
-
-    //         String lastName = parts[1].trim();
-    //         userValidator.validateUsername(lastName);
-
-    //         return new DtoBuilder().id(idCounter).firstName(firstName).lastName(lastName).build();
-    //     } catch (Exception e) {
-    //         throw new IllegalArgumentException("Ошибка при разборе данных: " + e.getMessage(), e);
-    //     }
-    // }
+    public static String getHeader(int userCount) {
+        return String.format("=== Список пользователей " +
+                "===%nВсего пользователей: %d%n----------------------------------------%n", userCount);
+    }
     
     /**
      * ПАРСЕР СТРОКИ ФОРМАТ "USER: Имя Фамилия (ID: 123)" возвращает объект
@@ -61,8 +44,8 @@ public class FileUserReader {
             String firstName = nameParts[0].trim();
             String lastName = nameParts[1].trim();
             
-            userValidator.validateUsername(firstName);
-            userValidator.validateUsername(lastName);
+            UserValidator.validateUsername(firstName);
+            UserValidator.validateUsername(lastName);
             
             return new DtoBuilder().id(id).firstName(firstName).lastName(lastName).build();
         } catch (Exception e) {
@@ -103,4 +86,31 @@ public class FileUserReader {
         
         return users;
     }
+
+    public static long getMaxIdFromLines(List<String> lines) {
+        long maxId = 0;
+        Pattern ID_PATTERN = Pattern.compile("\\(ID:\\s*(\\d+)\\)");
+
+        for (String line : lines) {
+            line = line.trim();
+
+            if (line.startsWith("USER:")) {
+                try {
+                    // Пытаемся извлечь ID напрямую из строки
+                    Matcher idMatcher = ID_PATTERN.matcher(line);
+                    if (idMatcher.find()) {
+                        long id = Long.parseLong(idMatcher.group(1));
+                        if (id > maxId) {
+                            maxId = id;
+                        }
+                    }
+                } catch (Exception e) {
+                    System.err.println("Ошибка парсинга ID из строки: " + line + " - " + e.getMessage());
+                }
+            }
+        }
+
+        return maxId;
+    }
+
 }

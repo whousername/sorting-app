@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 import edu.finalproject.insertOutput.FileServiceTask2;
 import edu.finalproject.insertOutput.InsertOutput;
+import edu.finalproject.insertOutput.Status;
+import edu.finalproject.insertOutput.WarningColors;
 import edu.finalproject.model.PersonalData;
 
 public class UIService {
@@ -89,8 +91,8 @@ public class UIService {
             }
             case 2 ->{
                 users = insertOutput.generateRandomData();
+                WarningColors.printStatus(Status.SUCCESS, "Список пользователей успешно создан!");
                 insertOutput.displayUsers(users);
-                
             }
             case 3 -> {
                 users = insertOutput.readFromSavedFile();
@@ -144,12 +146,6 @@ public class UIService {
         System.out.println("\nНажмите Enter, чтобы продолжить...");
         return scan.nextLine();
     }
-
-
-
-
-
-
 
 
     /*

@@ -26,7 +26,7 @@ public class FileServiceTask2 {
 
             String choice = scan.nextLine();
 
-            if (choice.equalsIgnoreCase("с")) {
+            if (choice.equalsIgnoreCase("c")) {
                 System.out.println("Назовите файл");
                 String fileName = scan.nextLine();
                 insertOutput.saveToFile(fileName + ".txt", users);
