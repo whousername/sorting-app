@@ -7,7 +7,7 @@ import java.util.function.Function;
  *
  * @author fds
  */
-class SimpleSearch<T, F> implements SearchBehavior{
+class SimpleSearch<T, F> implements SearchBehavior<T, F>{
 
 	private final List<T> list;
 	private final Function<T, F> getter;
@@ -18,7 +18,7 @@ class SimpleSearch<T, F> implements SearchBehavior{
 	}
 	
 	@Override
-	public Object find(Object field) {
+	public T find(F field) {
 		for (int i = 0; i < list.size(); i++) {
 			T guess = list.get(i);
 			if (field == getter.apply(guess)) {
