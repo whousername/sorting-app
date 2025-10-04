@@ -6,24 +6,25 @@ import java.util.function.Function;
 
 /**
  * Класс для поиска объектов в списке.
- * @param <T> Тип Объекта
+ * @param <T> Тип Объектов
  * @param <F> Тип поля, по которому будет производиться поиск
  * @author fds
  */
 public class SearchEngine <T, F> {
 	
-	private SearchBehavior<T, F> searchBehavior;
+	private final SearchBehavior<T, F> searchBehavior;
 	
 	/**
 	 * Коструктор для бинарного поиска
-	 * @param list отсортированный списиок с объектами
-	 * @param getter функция, возвращающая сравниваемое поле
-	 * @param comparator компаратор сортировки
+	 * @param list отсортированный список с объектами
+	 * @param getter функция, возвращающая из объекта сравниваемое поле
+	 * @param comparator компаратор сортировки 
+	 * (должен совпадать с компаратором сортировки)
 	 */
 	public SearchEngine(List<T> list,
-						Function<T, F> getter, 
-						Comparator<F> comparator) {
-		searchBehavior = new BinarySearch<>(list, getter, comparator);
+			Function<T, F> getter, 
+			Comparator<? super F> comparator) {
+		searchBehavior = new BinarySearch<T, F>(list, getter, comparator);
 	}
 	
 	/**
