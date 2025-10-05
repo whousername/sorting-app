@@ -84,7 +84,7 @@ public class UIService {
             case 3 -> {
                 System.out.println("Укажите название файла: ");
                 String filename = readString();
-                users = insertOutput.readFromFile(filename);
+                users = insertOutput.readFromSavedFile(filename);
                 insertOutput.displayUsers(users);
             }
             case 4 -> {
