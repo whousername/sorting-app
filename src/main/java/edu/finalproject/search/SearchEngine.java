@@ -44,4 +44,14 @@ public class SearchEngine <T, F> {
 	public T find(F field) {
 		return searchBehavior.find(field);
 	}
+	
+	/**
+	 * Многопоточный поиск вхождений объекта в список
+	 * @param item объект, который необходимо посчитать
+	 * @return количество вхождений
+	 * @throws InterruptedException 
+	 */
+	public int countOccurrences(T item) throws InterruptedException {
+		return searchBehavior.countOccurrences(item);
+	}
 }
