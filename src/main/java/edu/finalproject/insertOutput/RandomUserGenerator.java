@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:src/main/java/edu/finalproject/inputOutput/RandomUserGenerator.java
+package edu.finalproject.inputOutput;
+========
 package edu.finalproject.insertOutput;
+>>>>>>>> integration:src/main/java/edu/finalproject/insertOutput/RandomUserGenerator.java
 
 import edu.finalproject.model.DtoBuilder;
 import edu.finalproject.model.PersonalData;
