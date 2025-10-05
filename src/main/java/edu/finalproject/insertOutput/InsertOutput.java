@@ -36,8 +36,12 @@ public class InsertOutput {
     }
 
     //Генерация случайных данных
-    public List<PersonalData> generateRandomData(int count) {
+    public List<PersonalData> generateRandomData() {
         List<PersonalData> users = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Введите количество пользователей:");
+        int count = ManualUserInput.readPositiveInt(scanner);
 
         if (count < 0) {
             logger.severe("Количество генерируемых юзеров не может быть меньше нуля!");

@@ -1,14 +1,18 @@
 package edu.finalproject.UI;
 
+
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Function;
 
 import edu.finalproject.insertOutput.FileServiceTask2;
 import edu.finalproject.insertOutput.InsertOutput;
 import edu.finalproject.insertOutput.Status;
 import edu.finalproject.insertOutput.WarningColors;
 import edu.finalproject.model.PersonalData;
+import edu.finalproject.search.SearchEngine;
 
 public class UIService {
 
@@ -19,22 +23,6 @@ public class UIService {
     FileServiceTask2 fileService = new FileServiceTask2();
     
     private List<PersonalData> users = new ArrayList<>(); 
-    
-
-    //проблема: мы распарсили файл 5 имен, выходим из программы и сохраняем в тот же файл: получаем 10 имен - каждого по два
-
-    //проблема повторяющихся id: мы создали два пользователя id0 и id1, добавляем эти два пользователя в файл в котором уже существуют такие id
-
-
-    /*Введите количество пользователей:
-                    2
-                    Введите имя: sdf      
-                    Введите фамилию: cdws      //нет разделений между созданием юзеров, то есть просто подряд: введите имя, введите фамилию, введите имя и тд
-                    Введите имя: asdf          //между созданием пользователей какой то разделитель нужен 
-                    Введите фамилию: sdf */
-    //
-
-    //свободно для доработки в последнюю очередь: цветнной текст ошибок в меню
 
 
     public void run() {
@@ -61,7 +49,7 @@ public class UIService {
         return switch (choice) {
          
             case 1 -> { handleFillingMenu(); yield true; }
-            case 2 -> { binarySearch(); yield true; }
+            case 2 -> { handleBinarySearchService();; yield true; }
             case 3 -> { handleFileServiceMenu(); yield true; }
             case 4 -> 
             { 
@@ -86,8 +74,7 @@ public class UIService {
         switch (choice) {
             case 1 -> {
                 users = insertOutput.manualInput();       
-                insertOutput.displayUsers(users);
-                
+                insertOutput.displayUsers(users);   
             }
             case 2 ->{
                 users = insertOutput.generateRandomData();
@@ -95,7 +82,9 @@ public class UIService {
                 insertOutput.displayUsers(users);
             }
             case 3 -> {
-                users = insertOutput.readFromSavedFile();
+                System.out.println("Укажите название файла: ");
+                String filename = readString();
+                users = insertOutput.readFromFile(filename);
                 insertOutput.displayUsers(users);
             }
             case 4 -> {
@@ -122,14 +111,50 @@ public class UIService {
         }
     }
 
-    private void binarySearch() {
-        System.out.println("TODO: реализовать бинарный поиск");
-        pressEnterToContinue();
+    private void handleBinarySearchService(){
+        System.out.println("ОПЦИИ ПОИСКА: ");
+        System.out.println("1. Поиск по ID");
+        System.out.println("2. Поиск по имени");
+        System.out.println("3. Поиск по фамилии");
+        System.out.println("4. Назад");
+
+        int choice = readInt("Выберете параметр поиска: ");
+        switch (choice) {
+            case 1 -> binarySearchGeneric(PersonalData::getId, "Введите ID: ", s -> Long.valueOf(s));
+            case 2 -> binarySearchGeneric(PersonalData::getFirstName, "Введите имя: ", s -> s.trim());
+            case 3 -> binarySearchGeneric(PersonalData::getLastName, "Введите фамилию: ", s -> s.trim());
+            case 4 -> System.out.println("Возврат в главное меню");
+            default -> System.out.println("Неверный выбор");
+        }
     }
 
-    // private int chooseArrayLength() {
-    //     return readInt("Укажите количество пользователей...");
-    // }
+    private <F extends Comparable<? super F>> void binarySearchGeneric(
+        Function<PersonalData, F> getter,
+        String promtMessage,
+        Function<String, F> parser)
+    {
+        users.sort(Comparator.comparing(getter));
+        SearchEngine<PersonalData, F> binarySearch = new SearchEngine<>(users, getter, Comparator.naturalOrder());
+        System.out.println(promtMessage);
+        String inputRaw = readString();
+
+        try {
+            F key = parser.apply(inputRaw.trim());
+            PersonalData found = binarySearch.find(key);
+            if(found != null){
+                System.out.println("Пользователь найден: " + found);
+            } else {System.out.println("Пользователь не найден");}
+        } catch (RuntimeException e) {
+            System.out.println("Неверный формат ввода: " + e.getMessage());
+        }
+    }
+
+    private String readString(){
+        while(!scan.hasNextLine()){
+            System.out.println("Введите строку корректно");
+            scan.nextLine();
+        } return scan.nextLine();
+    }
 
     private int readInt(String prompt) {
         System.out.println(prompt);
@@ -142,59 +167,19 @@ public class UIService {
         return i;
     }
 
-    public String pressEnterToContinue() {
-        System.out.println("\nНажмите Enter, чтобы продолжить...");
-        return scan.nextLine();
+    private Long readLongId() {
+        while (!scan.hasNextLong()) {
+            System.out.println("Введите корректный ID (число):");
+            scan.next();
+        }
+        return scan.nextLong();
     }
 
-
-    /*
-    
-    
-     на данном этапе наша утилита сохраняет файлы а одном формате, а десериализует из другого формата.
-     проще говоря, мы не можем прочитать файл который создали нашей же программой
-     1.переписать метод который будет сохранять в файл в формате Имя,Фамилия МИНУСЫ: красивый метод антона going to hell
-     2.сгенерировать сложный парсер под формат в котором сохраняет метод Антона. МИНУСЫ: это будет копипаста от курсора, я не буду сидеть разбираться как написать огромный парсер
-
-
-
-
-
-    */
-
-
-
-    //перенес в файлсервис 
-
-
-    // private void processUsers(List<PersonalData> users) {
-    //     System.out.println("\nПолучено пользователей: " + users.size());
-
-    //     if (users.isEmpty()) {
-    //         System.out.println("Список пуст");
-    //         return;
-    //     }
-    //     System.out.println("\nСоздать файл с результатами? (y/n): ");
-    //     if (scan.nextLine().equalsIgnoreCase("y")) {
-    //         System.out.print("Сохранить пользователей в отдельный файл в формате .txt" +
-    //                 " или перезаписать существующий (c/r):");
-
-    //         String choice = scan.nextLine();
-
-    //         if (choice.equalsIgnoreCase("c")) {
-    //             System.out.println("Назовите файл");
-    //             String fileName = scan.nextLine();
-    //             insertOutput.saveToFile(fileName + ".txt", users);
-    //         }
-
-    //         else if (choice.equalsIgnoreCase("r")) {
-    //             System.out.println("Напишите название файла");
-    //             String fileName = scan.nextLine();
-    //             insertOutput.saveToFile(fileName + ".txt", users, true);
-    //         }else{
-    //             System.out.println("Ошибка ввода");
-    //         }
-
-    //     }
-    // }
+    public void pressEnterToContinue() {
+        System.out.println("\nНажмите Enter, чтобы продолжить...");
+        if (scan.hasNextLine()) {
+            scan.nextLine(); 
+        }
+        scan.nextLine(); 
+    }
 }

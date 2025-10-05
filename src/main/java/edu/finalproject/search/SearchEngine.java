@@ -4,6 +4,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 
+import edu.finalproject.model.PersonalData;
+
 /**
  * Класс для поиска объектов в списке.
  * @param <T> Тип Объекта
@@ -22,8 +24,8 @@ public class SearchEngine <T, F> {
 	 */
 	public SearchEngine(List<T> list,
 						Function<T, F> getter, 
-						Comparator<F> comparator) {
-		searchBehavior = new BinarySearch<>(list, getter, comparator);
+						Comparator<F> comparator) {  //исправил дженерик Comparator<PersonalData> comparator
+		searchBehavior = new BinarySearch<>(list, getter, comparator);    //вылетал class cast ex
 	}
 	
 	/**

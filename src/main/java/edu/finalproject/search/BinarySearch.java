@@ -36,7 +36,7 @@ class BinarySearch <T, F> implements SearchBehavior<T, F>{
 			if (compareResult == 0) {
 				return element;
 			}
-			if (compareResult > 0) {
+			if (compareResult < 0) {  
 				left = middle + 1;
 			} else {
 				right = middle - 1;

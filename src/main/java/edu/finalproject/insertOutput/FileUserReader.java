@@ -12,10 +12,10 @@ public class FileUserReader {
 
         try {
             String firstName = parts[0].trim();
-            userValidator.validateUsername(firstName);
+            UserValidator.validateUsername(firstName);
 
             String lastName = parts[1].trim();
-            userValidator.validateUsername(lastName);
+            UserValidator.validateUsername(lastName);
 
             return new DtoBuilder().id(idCounter).firstName(firstName).lastName(lastName).build();
         } catch (Exception e) {
