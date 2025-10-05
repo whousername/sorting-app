@@ -2,9 +2,9 @@ package edu.finalproject.sortAlgorithms;
 
 import java.util.Comparator;
 
-public class sortAlgorithms<E> {
+public class SortAlgorithms<E> {
     private SortStrategy<E> strategy;
-    public sortAlgorithms(SortStrategy<E> strategy)
+    public SortAlgorithms(SortStrategy<E> strategy)
     {
         this.strategy = strategy;
     }

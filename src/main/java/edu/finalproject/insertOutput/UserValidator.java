@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:src/main/java/edu/finalproject/inputOutput/userValidator.java
-package edu.finalproject.inputOutput;
-========
 package edu.finalproject.insertOutput;
->>>>>>>> integration:src/main/java/edu/finalproject/insertOutput/UserValidator.java
 
 public class UserValidator {
     private static final String USERNAME_PATTERN = "[a-zA-Zа-яА-ЯёЁ]{3,20}$";

@@ -5,13 +5,12 @@ import java.util.Scanner;
 
 import edu.finalproject.model.PersonalData;
 
-public class FileServiceTask2 {
+public class FileService {
 
     private Scanner scan = new Scanner(System.in);
     private InsertOutput insertOutput = new InsertOutput();
 
       //доп задание №2
-      
       public void processUsers(List<PersonalData> users) {
         System.out.println("\nПолучено пользователей: " + users.size());
 

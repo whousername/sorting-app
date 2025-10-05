@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
 
-import edu.finalproject.insertOutput.FileServiceTask2;
+import edu.finalproject.insertOutput.FileService;
 import edu.finalproject.insertOutput.InsertOutput;
 import edu.finalproject.insertOutput.Status;
 import edu.finalproject.insertOutput.WarningColors;
@@ -20,7 +20,7 @@ public class UIService {
 
     private final InsertOutput insertOutput = new InsertOutput();
 
-    FileServiceTask2 fileService = new FileServiceTask2();
+    FileService fileService = new FileService();
     
     private List<PersonalData> users = new ArrayList<>(); 
 
@@ -120,9 +120,9 @@ public class UIService {
 
         int choice = readInt("Выберете параметр поиска: ");
         switch (choice) {
-            case 1 -> binarySearchGeneric(PersonalData::getId, "Введите ID: ", s -> Long.valueOf(s));
-            case 2 -> binarySearchGeneric(PersonalData::getFirstName, "Введите имя: ", s -> s.trim());
-            case 3 -> binarySearchGeneric(PersonalData::getLastName, "Введите фамилию: ", s -> s.trim());
+            case 1 -> binarySearchGeneric(PersonalData::getId, "Введите ID: ", Long::valueOf);
+            case 2 -> binarySearchGeneric(PersonalData::getFirstName, "Введите имя: ", String::trim);
+            case 3 -> binarySearchGeneric(PersonalData::getLastName, "Введите фамилию: ", String::trim);
             case 4 -> System.out.println("Возврат в главное меню");
             default -> System.out.println("Неверный выбор");
         }

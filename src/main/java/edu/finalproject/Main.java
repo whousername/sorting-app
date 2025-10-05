@@ -5,10 +5,8 @@ import edu.finalproject.UI.UIService;
 public class Main {
     public static void main(String[] args) {
 
-
         UIService ui = new UIService();
         ui.run();
-        
     }
 }
 
