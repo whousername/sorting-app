@@ -2,7 +2,7 @@ package edu.finalproject.model;
 
 public class DtoBuilder implements Builder {
 
-    PersonalData personalData = new PersonalData(null, null, null);
+    PersonalData personalData = new PersonalData();
 
     @Override
     public Builder id(Long id) {
