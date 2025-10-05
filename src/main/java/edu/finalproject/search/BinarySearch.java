@@ -103,9 +103,8 @@ class BinarySearch <T, F> implements SearchBehavior<T, F>{
 		@Override
 		public void run() {
 			int i = startingPosition + increment;
-			int size = list.size();
 			
-			while (i >= 0 && i < size && list.get(i) == item) {
+			while (i >= 0 && i < list.size() && list.get(i) == item) {
 				occurrenceCounter++;
 				i += increment;
 			}
