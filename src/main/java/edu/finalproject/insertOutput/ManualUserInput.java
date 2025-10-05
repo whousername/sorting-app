@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:src/main/java/edu/finalproject/inputOutput/ManualUserInput.java
 package edu.finalproject.inputOutput;
+========
+package edu.finalproject.insertOutput;
+>>>>>>>> integration:src/main/java/edu/finalproject/insertOutput/ManualUserInput.java
 
 import edu.finalproject.model.DtoBuilder;
 import edu.finalproject.model.PersonalData;
@@ -15,7 +19,7 @@ public class ManualUserInput {
                 if (n <= 0) throw new IllegalArgumentException();
                 return n;
             } catch (Exception e) {
-                System.out.println("Введите положительное число!");
+                WarningColors.printStatus(Status.WARNING, "Введите положительное число!");
             }
         }
     }
@@ -25,11 +29,11 @@ public class ManualUserInput {
 
         System.out.print("Введите имя: ");
         String firstName = scanner.nextLine();
-        userValidator.validateUsername(firstName);
+        UserValidator.validateUsername(firstName);
 
         System.out.print("Введите фамилию: ");
         String lastName = scanner.nextLine();
-        userValidator.validateUsername(lastName);
+        UserValidator.validateUsername(lastName);
 
         return builder.id(idCounter++)
                 .firstName(firstName)

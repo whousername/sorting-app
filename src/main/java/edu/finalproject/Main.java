@@ -1,9 +1,14 @@
 package edu.finalproject;
 
+import edu.finalproject.UI.UIService;
+
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("Hello team!");
+
+        UIService ui = new UIService();
+        ui.run();
+        
     }
 }
 
