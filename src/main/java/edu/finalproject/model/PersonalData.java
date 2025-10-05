@@ -1,6 +1,6 @@
 package edu.finalproject.model;
 
-public class PersonalData {
+public class PersonalData implements NumericField {
 
     Long id;
     String firstName;
@@ -9,6 +9,25 @@ public class PersonalData {
     @Override
     public String toString() {
         return String.format("%s %s (ID: %d)", firstName, lastName, id);
+    }
+
+    @Override
+    public long getNumericValue() {
+
+        return id;
+    }
+
+    //добавил геттеры для бинарного поиска
+    public Long getId() {
+        return id;
+    }
+    
+    public String getFirstName() {
+        return firstName;
+    }
+    
+    public String getLastName() {
+        return lastName;
     }
 }
 
