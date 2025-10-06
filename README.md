@@ -1,4 +1,4 @@
-# Sorting aplication
+# Sorting application
 
 Приложение для демонстрации различных алгоритмов сортировки и бинарного поиска.
 
@@ -9,15 +9,15 @@ src/main/java/com/sortingapp/
 ├── Main.java                   # Главный класс приложения
 ├── model/                      # Модели данных и паттерн Builder
 ├── sortAlgorithms/             # Алгоритмы сортировки
-├── binarySearch/               # Алгоритмы бинарного поиска
-├── validationUtils/            # Утилиты для валидации
-└── inputOutput/                # Ввод/вывод данных
+├── search/                     # Алгоритмы бинарного поиска
+├── UI/                         # Утилиты для работы с UI
+└── insertOutput/               # Ввод/вывод данных
 ```
 
 ## Требования
 
-- Java 11 или выше
-- Maven 3.6 или выше
+- Java 25
+- Maven 3.14.0
 
 ## Сборка и запуск
 
@@ -35,7 +35,7 @@ mvn test
 # Пример использования dtoBuilder:
 ```java
 Builder builder = new dtoBuilder();  
-PersonalData personalData = builder.id(69L).firstName("Vasyliy").lastName("Pupkin").build();
+PersonalData personalData = builder.id(1L).firstName("Vasyliy").lastName("Pupkin").build();
 System.out.println(personalData);
 ```
 # Пример использования consoleBuilder:
@@ -48,6 +48,6 @@ System.out.println(personalData);
 
 - **model** - содержит модели данных и реализацию паттерна Builder
 - **sortAlgorithms** - различные алгоритмы сортировки (QuickSort, MergeSort, BubbleSort и др.)
-- **binarySearch** - алгоритмы бинарного поиска
-- **validationUtils** - утилиты для валидации входных данных
+- **search** - алгоритмы бинарного поиска
+- **UI** - утилиты для работы с UI
 - **inputOutput** - классы для работы с вводом/выводом данных
