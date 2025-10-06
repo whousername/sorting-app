@@ -4,6 +4,8 @@ package edu.finalproject.sortAlgorithms;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+import edu.finalproject.model.PersonalData;
+
 /* todo: имплементировать от Collection
  *  После этого, заменить все использования CustomUserCollection на Collection*/
 
@@ -30,10 +32,10 @@ public class CustomUserCollection<E> {
         this.size = size;
     }
 
-    public void add(E element) {
+    public void add(PersonalData newUser) {
         // Добавление элемента в коллекцию
         elements = Arrays.copyOf(elements, elements.length + 1);
-        elements[size++] = element;
+        elements[size++] = newUser;
     }
 
     @SuppressWarnings("unchecked")
@@ -45,8 +47,12 @@ public class CustomUserCollection<E> {
 
     public void fillFromStream(Stream<E> stream) {
         // Заполнение коллекции из файла
-        stream.forEach(this::add);
+        stream.forEach(e -> {
+            elements = Arrays.copyOf(elements, elements.length + 1);
+            elements[size++] = e;
+        });
     }
+
 
     @Override
     public String toString() {
@@ -71,6 +77,11 @@ public class CustomUserCollection<E> {
     @SuppressWarnings("unchecked")
     public Stream<E> stream() {
         return (Stream<E>) Arrays.stream(elements, 0, size);
+    }
+
+    public void add(String line) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'add'");
     }
 
 }

@@ -2,8 +2,9 @@ package edu.finalproject.insertOutput;
 
 import edu.finalproject.model.DtoBuilder;
 import edu.finalproject.model.PersonalData;
+import edu.finalproject.sortAlgorithms.CustomUserCollection;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,11 +57,13 @@ public class FileUserReader {
     /**
      * МЕТОД ПАРСЕР ВСЕГО ФАЙЛА возвращает список пользователей
      */
-    public static List<PersonalData> parseSavedFile(List<String> lines) {
-        List<PersonalData> users = new ArrayList<>();
+    public static CustomUserCollection<PersonalData> parseSavedFile(CustomUserCollection<PersonalData> lines) {
+        CustomUserCollection<PersonalData> users = new CustomUserCollection<>();
 
-        for (String line : lines) {
-            line = line.trim();
+        for (int i = 0; i < lines.getSize(); i++) {
+            String line = lines.get(i).toString(); // если lines хранит объекты PersonalData
+            // обработка строки
+        
 
             // Пропускаем пустые строки, заголовки и разделители
             if (line.isEmpty() ||

@@ -1,7 +1,6 @@
 package edu.finalproject.insertOutput;
 
-import java.util.Collection;
-import java.util.List;
+
 import java.util.Scanner;
 
 import edu.finalproject.model.PersonalData;
@@ -13,14 +12,10 @@ public class FileService {
     private InsertOutput insertOutput = new InsertOutput();
 
       //доп задание №2
-<<<<<<< HEAD
-      public void processUsers(List<PersonalData> users) {
-        System.out.println("\nПолучено пользователей: " + users.size());
-=======
-      
+    
       public void processUsers(CustomUserCollection<PersonalData> users) {
         System.out.println("\nПолучено пользователей: " + users.getSize());
->>>>>>> 581b79e (Sorting methods integrated, all classes work with CustomUserCollection<PersonalData>, basic functionality of the application has finished, FileUserParser class created instead of FileUserReader)
+
 
         if (users.getSize() == 0) {
             System.out.println("Список пуст");
