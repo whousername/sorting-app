@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 public class BubbleSort<E> implements SortStrategy<E>{
     public void sort(CustomUserCollection<E> list, Comparator<E> comparator) {
-        int n = list.getSize();
+        int n = list.size();
         boolean swapped;
         for (int i = 0; i < n - 1; i++) {
             swapped = false;
