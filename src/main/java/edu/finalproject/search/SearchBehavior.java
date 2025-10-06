@@ -6,4 +6,5 @@ package edu.finalproject.search;
  */
 interface SearchBehavior <T, F> {
 	public T find(F field);
+	public int countOccurrences(T item) throws InterruptedException;
 }
