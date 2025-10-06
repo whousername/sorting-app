@@ -2,6 +2,7 @@ package edu.finalproject.insertOutput;
 
 import edu.finalproject.model.DtoBuilder;
 import edu.finalproject.model.PersonalData;
+import edu.finalproject.sortAlgorithms.CustomUserCollection;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -17,8 +18,14 @@ public class InsertOutput {
     private Scanner scanner = new Scanner(System.in);
 
     // Ввод юзеров через консоль
+<<<<<<< HEAD
     public List<PersonalData> manualInput() {
         List<PersonalData> users = new ArrayList<>();
+=======
+    public CustomUserCollection<PersonalData> manualInput() {
+        CustomUserCollection<PersonalData> users = new CustomUserCollection<>();
+        Scanner scanner = new Scanner(System.in);
+>>>>>>> 581b79e (Sorting methods integrated, all classes work with CustomUserCollection<PersonalData>, basic functionality of the application has finished, FileUserParser class created instead of FileUserReader)
 
         System.out.println("Введите количество пользователей:");
         int count = ManualUserInput.readPositiveInt(scanner);
@@ -40,9 +47,16 @@ public class InsertOutput {
     }
 
     //Генерация случайных данных
+<<<<<<< HEAD
     public List<PersonalData> generateRandomData() {
         List<PersonalData> users = new ArrayList<>();
 
+=======
+    public CustomUserCollection<PersonalData> generateRandomData() {
+        CustomUserCollection<PersonalData> users = new CustomUserCollection<>();
+        Scanner scanner = new Scanner(System.in);
+        
+>>>>>>> 581b79e (Sorting methods integrated, all classes work with CustomUserCollection<PersonalData>, basic functionality of the application has finished, FileUserParser class created instead of FileUserReader)
         System.out.println("Введите количество пользователей:");
         int count = ManualUserInput.readPositiveInt(scanner);
 
@@ -58,15 +72,43 @@ public class InsertOutput {
         return users;
     }
 
+<<<<<<< HEAD
+=======
+    //чтение из файла
+    public CustomUserCollection<PersonalData> readFromFile(String filename) {
+        CustomUserCollection<PersonalData> users = new CustomUserCollection<>();
+        String line = "";
+        int lineNumber = 0;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            while ((line = reader.readLine()) != null) {
+                lineNumber++;
+                try {
+                    PersonalData user = FileUserParser.parseLine(line, idCounter++);
+                    if (user != null) {
+                        users.add(user);
+                    }
+                } catch (Exception e) {
+                    logger.severe("Невалидная строка " + lineNumber + ": " + line + " - " + e.getMessage());
+                }
+            }
+        } catch (IOException e) {
+            logger.severe("Ошибка чтения: " + e.getMessage() + "\n");
+        }
+
+        return users;
+    }
+
+>>>>>>> 581b79e (Sorting methods integrated, all classes work with CustomUserCollection<PersonalData>, basic functionality of the application has finished, FileUserParser class created instead of FileUserReader)
     //вывод пользователей
-    public void displayUsers(List<PersonalData> users) {
-        if (users == null || users.isEmpty()) {
+    public void displayUsers(CustomUserCollection<PersonalData> users) {
+        if (users == null || users.getSize() == 0) {
             System.out.println("Список пользователей пуст.");
             return;
         }
 
         System.out.println("\n=== Список пользователей ===");
-        System.out.println("Всего пользователей: " + users.size());
+        System.out.println("Всего пользователей: " + users.getSize());
         System.out.println("----------------------------------------");
         users.stream().peek(user -> {
             System.out.printf("USER: %s%n", user.toString());
@@ -74,12 +116,13 @@ public class InsertOutput {
         }).toList();
     }
 
-    public void saveToFile(String filename, List<PersonalData> users, boolean append) {
-        if (users == null || users.isEmpty()) {
+    public void saveToFile(String filename, CustomUserCollection<PersonalData> users, boolean append) {
+        if (users == null || users.getSize() == 0) {
             logger.warning("Попытка сохранить пустой список пользователей.");
             return;
         }
 
+<<<<<<< HEAD
         try {
             List<PersonalData> usersToSave = append ? prepareUsersForAppend(filename, users) : users;
             writeToFile(filename, usersToSave, append);
@@ -129,6 +172,13 @@ public class InsertOutput {
 
             if (!append || !fileExists) {
                 writer.write(FileUserReader.getHeader(users.size()));
+=======
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, append))) {
+            if (!append || Files.notExists(Paths.get(filename)) || Files.size(Paths.get(filename)) == 0) {
+                writer.write("=== Список пользователей ===\n");
+                writer.write("Всего пользователей: " + users.getSize() + "\n");
+                writer.write("----------------------------------------\n");
+>>>>>>> 581b79e (Sorting methods integrated, all classes work with CustomUserCollection<PersonalData>, basic functionality of the application has finished, FileUserParser class created instead of FileUserReader)
             } else {
                 writer.write("\n=== Дополнительные пользователи ===\n");
             }
@@ -141,6 +191,7 @@ public class InsertOutput {
         }
     }
 
+<<<<<<< HEAD
     /**
      * READER файла с парсером
      */
@@ -165,6 +216,10 @@ public class InsertOutput {
         }
 
         return users;
+=======
+    public void saveToFile(String filename, CustomUserCollection<PersonalData> users) {
+        saveToFile(filename, users, false);
+>>>>>>> 581b79e (Sorting methods integrated, all classes work with CustomUserCollection<PersonalData>, basic functionality of the application has finished, FileUserParser class created instead of FileUserReader)
     }
 
     /**

@@ -5,7 +5,7 @@ import edu.finalproject.model.NumericField;
 import java.util.Comparator;
 
 // Сортировка выбором
-public class SelectionSortEvenOnly<E extends NumericField> implements SortStrategy<E> {
+public class SelectionSortEvenOnly <E extends NumericField> implements SortStrategy<E> {
     public void sort(CustomUserCollection<E> list, Comparator<E> comparator) {
         int n = list.getSize();
         for (int i = 0; i < n - 1; i++) {

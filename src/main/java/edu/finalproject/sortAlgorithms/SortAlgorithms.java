@@ -11,7 +11,7 @@ public class SortAlgorithms<E> {
     public void setStrategy(SortStrategy<E> strategy){
         this.strategy = strategy;
     }
-    public void sort(CustomUserCollection<E> list, Comparator<E> comparator){
-        strategy.sort(list, comparator);
+    public void sort(CustomUserCollection<E> users, Comparator<E> comparator){
+        strategy.sort(users, comparator);
     }
 }

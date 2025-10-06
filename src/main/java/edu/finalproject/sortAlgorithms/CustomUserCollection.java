@@ -6,6 +6,10 @@ import java.util.stream.Stream;
 
 /* todo: имплементировать от Collection
  *  После этого, заменить все использования CustomUserCollection на Collection*/
+
+ //было рискованно, оставил CustomUserCollection
+
+ 
 public class CustomUserCollection<E> {
     private Object[] elements;
     private int size;
@@ -64,5 +68,9 @@ public class CustomUserCollection<E> {
         elements[j] = temp;
     }
 
+    @SuppressWarnings("unchecked")
+    public Stream<E> stream() {
+        return (Stream<E>) Arrays.stream(elements, 0, size);
+    }
 
 }
