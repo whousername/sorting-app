@@ -18,12 +18,10 @@ public class InsertOutput {
     private Scanner scanner = new Scanner(System.in);
 
     // Ввод юзеров через консоль
-   
     public CustomUserCollection<PersonalData> manualInput() {
         CustomUserCollection<PersonalData> users = new CustomUserCollection<>();
 
-        
-        System.out.println("Введите количество пользователей:");
+        System.out.print("Введите количество пользователей: ");
         int count = ManualUserInput.readPositiveInt(scanner);
 
         for (int i = 0; i < count; i++) {
@@ -43,11 +41,10 @@ public class InsertOutput {
     }
 
     //Генерация случайных данных
-   
      public CustomUserCollection<PersonalData> generateRandomData() {
         CustomUserCollection<PersonalData> users = new CustomUserCollection<>();
-        int count = 0;
-        System.out.println("Введите количество случайных пользователей:");
+        int count;
+        System.out.print("Введите количество случайных пользователей: ");
         try {
             count = ManualUserInput.readPositiveInt(scanner);
         } catch (Exception e) {
@@ -69,13 +66,13 @@ public class InsertOutput {
 
      //вывод пользователей
     public void displayUsers(CustomUserCollection<PersonalData> users) {
-        if (users == null || users.getSize() == 0) {
+        if (users == null || users.isEmpty()) {
             System.out.println("Список пользователей пуст.");
             return;
         }
 
         System.out.println("\n=== Список пользователей ===");
-        System.out.println("Всего пользователей: " + users.getSize());
+        System.out.println("Всего пользователей: " + users.size());
         System.out.println("----------------------------------------");
         users.stream().peek(user -> {
             System.out.printf("USER: %s%n", user.toString());
@@ -84,11 +81,10 @@ public class InsertOutput {
     }
 
     public void saveToFile(String filename, CustomUserCollection<PersonalData> users, boolean append) {
-        if (users == null || users.getSize() == 0) {
+        if (users == null || users.isEmpty()) {
             logger.warning("Попытка сохранить пустой список пользователей.");
             return;
         }
-
 
         try {
             CustomUserCollection<PersonalData> usersToSave = append ? prepareUsersForAppend(filename, users) : users;
@@ -115,7 +111,7 @@ public class InsertOutput {
         long startId = FileUserReader.getMaxIdFromLines(Files.readAllLines(Paths.get(filename))) + 1;
         CustomUserCollection<PersonalData> result = new CustomUserCollection<>();
 
-        for (int i = 0; i < users.getSize(); i++) {
+        for (int i = 0; i < users.size(); i++) {
             PersonalData user = users.get(i);
             Pattern pattern = Pattern.compile("(.+?)\\s+(.+?)\\s+\\(ID:\\s*\\d+\\)");
             Matcher matcher = pattern.matcher(user.toString());
@@ -139,7 +135,7 @@ public class InsertOutput {
             boolean fileExists = Files.exists(Paths.get(filename)) && Files.size(Paths.get(filename)) > 0;
 
             if (!append || !fileExists) {
-                writer.write(FileUserReader.getHeader(users.getSize()));
+                writer.write(FileUserReader.getHeader(users.size()));
             } else {
                 writer.write("\n=== Дополнительные пользователи ===\n");
             }
@@ -152,7 +148,6 @@ public class InsertOutput {
         }
     }
 
-    
     /**
      * READER файла с парсером
      */
@@ -160,7 +155,7 @@ public class InsertOutput {
         CustomUserCollection<PersonalData> users = new CustomUserCollection<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            CustomUserCollection<PersonalData> lines = new CustomUserCollection<>();
+            CustomUserCollection<String> lines = new CustomUserCollection<>();
             String line;
             while ((line = reader.readLine()) != null) {
                 lines.add(line);
@@ -170,7 +165,7 @@ public class InsertOutput {
 
             WarningColors.printStatus(Status.SUCCESS, "Файл успешно прочитан");
 
-            System.out.println("Прочитано пользователей из файла: " + users.getSize());
+            System.out.println("Прочитано пользователей из файла: " + users.size());
 
         } catch (IOException e) {
             logger.severe("Ошибка чтения файла: " + e.getMessage());

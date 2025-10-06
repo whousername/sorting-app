@@ -7,7 +7,7 @@ import java.util.Comparator;
 // Сортировка выбором
 public class SelectionSortEvenOnly <E extends NumericField> implements SortStrategy<E> {
     public void sort(CustomUserCollection<E> list, Comparator<E> comparator) {
-        int n = list.getSize();
+        int n = list.size();
         for (int i = 0; i < n - 1; i++) {
 
             if (isOdd(list.get(i))) {

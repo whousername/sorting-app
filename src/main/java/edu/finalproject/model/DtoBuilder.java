@@ -20,7 +20,6 @@ public class DtoBuilder implements Builder {
         return this;
     }
 
-
     @Override
     public Builder lastName(String lastName) {
 

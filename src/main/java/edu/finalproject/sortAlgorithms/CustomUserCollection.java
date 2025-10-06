@@ -1,11 +1,8 @@
 package edu.finalproject.sortAlgorithms;
 
-
 import java.util.*;
 import java.util.stream.Stream;
 
-/* todo: имплементировать от Collection
- *  После этого, заменить все использования CustomUserCollection на Collection*/
 public class CustomUserCollection<E> implements Collection<E> {
     private Object[] elements;
     private int size;
@@ -21,14 +18,17 @@ public class CustomUserCollection<E> implements Collection<E> {
         this.elements = new Object[size];
         this.size = size;
     }
+
     @Override
     public int size() {
         return size;
     }
+
     @Override
     public boolean isEmpty() {
         return size == 0;
     }
+
     @Override
     public boolean contains(Object element) {
         for (int i = 0; i < size; i++) {
@@ -38,6 +38,7 @@ public class CustomUserCollection<E> implements Collection<E> {
         }
         return false;
     }
+
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
@@ -63,11 +64,14 @@ public class CustomUserCollection<E> implements Collection<E> {
             }
         };
     }
+
     @Override
     public Object[] toArray() {
         return Arrays.copyOf(elements, size);
     }
+
     @Override
+    @SuppressWarnings("unchecked")
     public <E> E[] toArray(E[] a) {
         if (a.length < size) {
             // Создаём новый массив типа a с нужным размером и копируем в него элементы
@@ -79,6 +83,7 @@ public class CustomUserCollection<E> implements Collection<E> {
         }
         return a;
     }
+
     @Override
     public boolean add(E element) {
         // Добавление элемента в коллекцию
@@ -86,6 +91,7 @@ public class CustomUserCollection<E> implements Collection<E> {
         elements[size++] = element;
         return true;
     }
+
     @Override
     public boolean remove(Object o) {
         for (int i = 0; i < size; i++) {
@@ -101,6 +107,7 @@ public class CustomUserCollection<E> implements Collection<E> {
         }
         return false;
     }
+
     @Override
     public boolean containsAll(Collection<?> c) {
         for (Object element : c) {
@@ -110,6 +117,7 @@ public class CustomUserCollection<E> implements Collection<E> {
         }
         return true;  // Все элементы из c присутствуют в вашей коллекции
     }
+
     @Override
     public boolean addAll(Collection<? extends E> c) {
         boolean modified = false;
@@ -120,6 +128,7 @@ public class CustomUserCollection<E> implements Collection<E> {
         }
         return modified;
     }
+
     @Override
     public boolean removeAll(Collection<?> c) {
         boolean modified = false;
@@ -133,6 +142,7 @@ public class CustomUserCollection<E> implements Collection<E> {
         }
         return modified;
     }
+
     @Override
     public boolean retainAll(Collection<?> c) {
         boolean modified = false;
@@ -146,6 +156,7 @@ public class CustomUserCollection<E> implements Collection<E> {
         }
         return modified;
     }
+
     @Override
     public void clear() {
         for (int i = 0; i < size; i++) {
@@ -153,6 +164,7 @@ public class CustomUserCollection<E> implements Collection<E> {
         }
         size = 0;
     }
+
     @SuppressWarnings("unchecked")
     public E get(int index) {
         // Обращение по индексу
@@ -163,6 +175,7 @@ public class CustomUserCollection<E> implements Collection<E> {
         // Заполнение коллекции из файла
         stream.forEach(this::add);
     }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("[");
@@ -183,14 +196,13 @@ public class CustomUserCollection<E> implements Collection<E> {
         elements[j] = temp;
     }
 
-    @SuppressWarnings("unchecked")
+ /*   @SuppressWarnings("unchecked")
     public Stream<E> stream() {
         return (Stream<E>) Arrays.stream(elements, 0, size);
-    }
+    }*/
 
-    public void add(String line) {
+    /*public void add(String line) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'add'");
-    }
-
+    }*/
 }

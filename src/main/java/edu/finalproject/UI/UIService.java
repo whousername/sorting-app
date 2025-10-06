@@ -1,14 +1,11 @@
 package edu.finalproject.UI;
 
-
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import edu.finalproject.insertOutput.FileService;
 import edu.finalproject.insertOutput.FileService;
 import edu.finalproject.insertOutput.InsertOutput;
 import edu.finalproject.insertOutput.Status;
@@ -22,8 +19,6 @@ import edu.finalproject.sortAlgorithms.SortAlgorithms;
 import edu.finalproject.sortAlgorithms.SortStrategy;
 
 public class UIService {
-
-
 
     private final Scanner scan = new Scanner(System.in);
 
@@ -40,7 +35,6 @@ public class UIService {
             int choice = readInt("Выберите действие: ");
             running = handleMainChoice(choice);
             pressEnterToContinue();
-            
         }
     }
 
@@ -55,32 +49,27 @@ public class UIService {
         System.out.println("6. Выход");
     }
 
-
     private boolean handleMainChoice(int choice) {
         switch (choice) {
             case 1 -> handleFillingMenu();
 
             case 2 -> insertOutput.displayUsers(users);
-    
+
             case 3 -> handleSortingUniversalSort(users);
-    
+
             case 4 -> handleBinarySearchService();
-    
+
             case 5 -> fileService.processUsers(users);
-    
+
             case 6 -> {
                 exit();
                 return false;
             }
-    
+
             default -> System.out.println("Неверный выбор. Попробуйте снова.");
         }
-        return true; 
+        return true;
     }
-
-
-    
-
 
     private <E> Comparator<E> chooseComparator(CustomUserCollection<PersonalData> users) {
         System.out.println("Выберите поле для сортировки: ");
@@ -99,7 +88,6 @@ public class UIService {
         };
     }
 
-
     private <E> void handleSortingUniversalSort(CustomUserCollection<PersonalData> users) {
         if (users == null) {
             System.out.println("Коллекция пуста. Сначала заполните ее!");
@@ -108,11 +96,11 @@ public class UIService {
         System.out.println("Выберите тип сортировки: ");
         System.out.println("1. Пузырьковая сортировка");
         System.out.println("2. Сортировка выбором");
-    
+
         int choice = readInt("Выберите опцию: ");
-    
+
         SortStrategy<E> strategy;
-    
+
         switch (choice) {
             case 1 -> strategy = new BubbleSort<>();
             case 2 -> strategy = new SelectionSort<>();
@@ -128,7 +116,6 @@ public class UIService {
         System.out.println("Коллекция отсортирована!");
     }
 
-        
     private void handleFillingMenu() {
         System.out.println(" СПОСОБЫ ЗАПОЛНЕНИЯ:");
         System.out.println("1. Ручное заполнение");
@@ -139,34 +126,31 @@ public class UIService {
         int choice = readInt("Выберите опцию: ");
         switch (choice) {
             case 1 -> {
-                users = insertOutput.manualInput();       
-                insertOutput.displayUsers(users);   
+                users = insertOutput.manualInput();
+                insertOutput.displayUsers(users);
             }
-            case 2 ->{
+            case 2 -> {
                 users = insertOutput.generateRandomData();
                 WarningColors.printStatus(Status.SUCCESS, "Список пользователей успешно создан!");
                 insertOutput.displayUsers(users);
             }
             case 3 -> {
-                System.out.println("Укажите название файла: ");
+                System.out.print("Укажите название файла: ");
                 String filename = readString();
-                users = insertOutput.readFromSavedFile(filename + "txt"); //пришлось исправить ибо тут было не првильное название метода
+                users = insertOutput.readFromSavedFile(filename + ".txt"); //пришлось исправить ибо тут было не правильное
+                // название метода
                 insertOutput.displayUsers(users);
             }
             case 4 -> {
-                System.out.println("Возврат в главное меню...");  
+                System.out.println("Возврат в главное меню...");
             }
             default -> {
-                System.out.println("Неверный выбор!"); 
+                System.out.println("Неверный выбор!");
             }
         }
     }
 
-
-
-
-    
-    private void handleBinarySearchService(){
+    private void handleBinarySearchService() {
         System.out.println("ОПЦИИ ПОИСКА: ");
         System.out.println("1. Поиск по ID");
         System.out.println("2. Поиск по имени");
@@ -184,21 +168,20 @@ public class UIService {
     }
 
     private <F extends Comparable<? super F>> void binarySearchGeneric(
-        Function<PersonalData, F> getter,
-        String promptMessage,
-        Function<String, F> parser)
-    {
+            Function<PersonalData, F> getter,
+            String promptMessage,
+            Function<String, F> parser) {
         //временный List из users для метода .sort()
         //заполнил стримом, даже не спрашивайте почему
         List<PersonalData> sortedUsers = users.stream()
-        .sorted(Comparator.comparing(getter))
-        .collect(Collectors.toList());
+                .sorted(Comparator.comparing(getter))
+                .collect(Collectors.toList());
 
         sortedUsers.sort(Comparator.comparing(getter));
 
         SearchEngine<PersonalData, F> binarySearch = new SearchEngine<>(sortedUsers, getter, Comparator.naturalOrder());
 
-        System.out.println(promptMessage);
+        System.out.print(promptMessage);
         String inputRaw = readString();
 
         try {
@@ -214,55 +197,45 @@ public class UIService {
         }
     }
 
-
-
-    private void exit(){
-        if (users.getSize() != 0){
-            System.out.println("В вашей коллекции имеются несохраненные данные..." + users.getSize() + " пользователей.");
-            System.out.println("Вы уверенны что хотите выйти? y/n");
+    private void exit() {
+        if (!users.isEmpty()) {
+            System.out.println("В вашей коллекции имеются несохраненные данные..." + users.size() + " пользователей.");
+            System.out.println("Вы уверенны что хотите выйти? д/н");
             String answer = readString();
-            if (answer.equalsIgnoreCase("y")) {
+            if (answer.equalsIgnoreCase("д")) {
                 System.out.println("До свидания!");
-            } else if (answer.equalsIgnoreCase("n")) {
+            } else if (answer.equalsIgnoreCase("н")) {
                 fileService.processUsers(users);
             } else {
-                System.out.println("Неверный ввод! Пожалуйста, введите 'y' или 'n'");
+                System.out.println("Неверный ввод! Пожалуйста, введите 'д' или 'н'");
             }
-        } else{
+        } else {
             System.out.println("До свидания!");
         }
     }
 
-
-
-
-    private String readString(){
-        while(!scan.hasNextLine()){
+    private String readString() {
+        while (!scan.hasNextLine()) {
             System.out.println("Введите строку корректно");
             scan.nextLine();
-        } return scan.nextLine();
+        }
+        return scan.nextLine();
     }
 
-
-
     private int readInt(String prompt) {
-        System.out.println(prompt);
+        System.out.print(prompt);
         while (!scan.hasNextInt()) {
             scan.next();
             System.out.println("Введите корректное число!");
         }
         int i = scan.nextInt();
-        scan.nextLine(); 
+        scan.nextLine();
+        System.out.println();
         return i;
     }
 
-
-
     public void pressEnterToContinue() {
         System.out.println("\nНажмите Enter, чтобы продолжить...");
-        if (scan.hasNextLine()) {
-            scan.nextLine(); 
-        }
-        scan.nextLine(); 
+        scan.nextLine();
     }
 }

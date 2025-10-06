@@ -57,13 +57,12 @@ public class FileUserReader {
     /**
      * МЕТОД ПАРСЕР ВСЕГО ФАЙЛА возвращает список пользователей
      */
-    public static CustomUserCollection<PersonalData> parseSavedFile(CustomUserCollection<PersonalData> lines) {
+    public static CustomUserCollection<PersonalData> parseSavedFile(CustomUserCollection<String> lines) {
         CustomUserCollection<PersonalData> users = new CustomUserCollection<>();
 
-        for (int i = 0; i < lines.getSize(); i++) {
+        for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i).toString(); // если lines хранит объекты PersonalData
             // обработка строки
-        
 
             // Пропускаем пустые строки, заголовки и разделители
             if (line.isEmpty() ||
@@ -115,5 +114,4 @@ public class FileUserReader {
 
         return maxId;
     }
-
 }
