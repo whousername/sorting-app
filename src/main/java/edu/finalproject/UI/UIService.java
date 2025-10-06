@@ -10,13 +10,10 @@ import edu.finalproject.insertOutput.FileService;
 import edu.finalproject.insertOutput.InsertOutput;
 import edu.finalproject.insertOutput.Status;
 import edu.finalproject.insertOutput.WarningColors;
+import edu.finalproject.model.NumericField;
 import edu.finalproject.model.PersonalData;
 import edu.finalproject.search.SearchEngine;
-import edu.finalproject.sortAlgorithms.BubbleSort;
-import edu.finalproject.sortAlgorithms.CustomUserCollection;
-import edu.finalproject.sortAlgorithms.SelectionSort;
-import edu.finalproject.sortAlgorithms.SortAlgorithms;
-import edu.finalproject.sortAlgorithms.SortStrategy;
+import edu.finalproject.sortAlgorithms.*;
 
 public class UIService {
 
@@ -88,7 +85,7 @@ public class UIService {
         };
     }
 
-    private <E> void handleSortingUniversalSort(CustomUserCollection<PersonalData> users) {
+    private <E extends NumericField> void handleSortingUniversalSort(CustomUserCollection<PersonalData> users) {
         if (users == null) {
             System.out.println("Коллекция пуста. Сначала заполните ее!");
             return;
@@ -96,6 +93,8 @@ public class UIService {
         System.out.println("Выберите тип сортировки: ");
         System.out.println("1. Пузырьковая сортировка");
         System.out.println("2. Сортировка выбором");
+        System.out.println("3. Пузырьковая сортировка, только четные");
+        System.out.println("4. Сортировка выбором, только четные");
 
         int choice = readInt("Выберите опцию: ");
 
@@ -104,12 +103,14 @@ public class UIService {
         switch (choice) {
             case 1 -> strategy = new BubbleSort<>();
             case 2 -> strategy = new SelectionSort<>();
+            case 3-> strategy = new BubbleSortEvenOnly<>();
+            case 4 -> strategy = new SelectionSortEvenOnly<>();
             default -> {
                 System.out.println("Неверный выбор!");
                 return;
             }
         }
-        Comparator<E> comparator = chooseComparator((CustomUserCollection<PersonalData>) users);
+        Comparator<E> comparator = chooseComparator(users);
 
         SortAlgorithms<E> sorter = new SortAlgorithms<>(strategy);
         sorter.sort((CustomUserCollection<E>) users, comparator);
